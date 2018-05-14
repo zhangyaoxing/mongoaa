@@ -7,9 +7,9 @@ const watch = require('./watch');
 const crypto = require('crypto');
 
 const optionDefs = [
-    {name: 'src', alias: 's', type: String, multiple: true},
-    {name: 'database', alias: 'd', type: String},
-    {name: 'collection', alias: 'c', type: String},
+    {name: 'src', alias: 's', type: String, multiple: true, description: "Two data sources your want to replicate from/to. Separate with space."},
+    {name: 'database', alias: 'd', type: String, description: "Database that you want to do AA replication."},
+    {name: 'collection', alias: 'c', type: String, description: "Collection that you want to do AA replication."},
     {name: 'help', alias: 'h', description: 'Display this guide.'}
 ];
 const sections = [
@@ -61,6 +61,9 @@ new Promise((resolve, reject) => {
     ];
     watch(collections);
 }).catch((ex) => {
-    console.log(ex.message);
+    if (ex) {
+        console.log(ex.message);
+    }
+    console.log(usage);
     process.exit(1);
 });

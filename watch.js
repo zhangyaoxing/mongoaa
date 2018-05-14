@@ -7,7 +7,7 @@ function replicate(sourceID, targetCollection, ops) {
             if(ops.fullDocument.__meta) {
                 break;
             }
-            let doc = Object.assign(ops.fullDocument, {
+            var doc = Object.assign(ops.fullDocument, {
                 __meta: {
                     source: sourceID,
                     timestamp: new Timestamp(1, new Date().getTime())
@@ -19,7 +19,7 @@ function replicate(sourceID, targetCollection, ops) {
             if (ops.updateDescription.updatedFields.__meta) {
                 break;
             }
-            let update = Object.assign(ops.updateDescription.updatedFields, {
+            var update = Object.assign(ops.updateDescription.updatedFields, {
                 __meta: {
                     source: sourceID,
                     timestamp: new Timestamp(1, new Date().getTime())
@@ -28,7 +28,7 @@ function replicate(sourceID, targetCollection, ops) {
             update = {
                 $set: update
             };
-            let unset = {};
+            var unset = {};
             ops.updateDescription.removedFields.forEach(f => {
                 unset[f] = 1;
             });
@@ -41,6 +41,15 @@ function replicate(sourceID, targetCollection, ops) {
             targetCollection.updateOne(ops.documentKey, update);
             break;
         case 'replace':
+            var update = {
+                $set: Object.assign(ops.fullDocument, {
+                    __meta: {
+                        source: sourceID,
+                        timestamp: new Timestamp(1, new Date().getTime())
+                    }
+                })
+            };
+            targetCollection.update(ops.documentKey, update);
             break;
         case 'delete':
             targetCollection.removeOne(ops.documentKey);
