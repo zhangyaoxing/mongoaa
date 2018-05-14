@@ -16,6 +16,31 @@ function replicate(sourceID, targetCollection, ops) {
             targetCollection.insert(doc)
             break;
         case 'update':
+            if (ops.updateDescription.updatedFields.__meta) {
+                break;
+            }
+            let update = Object.assign(ops.updateDescription.updatedFields, {
+                __meta: {
+                    source: sourceID,
+                    timestamp: new Timestamp(1, new Date().getTime())
+                }
+            });
+            update = {
+                $set: update
+            };
+            let unset = {};
+            ops.updateDescription.removedFields.forEach(f => {
+                unset[f] = 1;
+            });
+            if (Object.keys(unset).length) {
+                update = Object.assign(update, {
+                    $unset: unset
+                });
+            }
+
+            targetCollection.updateOne(ops.documentKey, update);
+            break;
+        case 'replace':
             break;
         case 'delete':
             targetCollection.removeOne(ops.documentKey);
