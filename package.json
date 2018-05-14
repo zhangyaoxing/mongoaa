@@ -1,0 +1,30 @@
+{
+  "name": "mongoaa",
+  "version": "0.0.1",
+  "description": "This is a PoC for MongoDB AA based on change stream.",
+  "main": "mongoaa.js",
+  "scripts": {
+    "test": "node mongoaa.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhangyaoxing/mongoaa.git"
+  },
+  "keywords": [
+    "MongoDB",
+    "AA"
+  ],
+  "author": "Yaoxing Zhang",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/zhangyaoxing/mongoaa/issues"
+  },
+  "homepage": "https://github.com/zhangyaoxing/mongoaa#readme",
+  "dependencies": {
+    "async": "^2.6.0",
+    "bluebird": "^3.5.1",
+    "command-line-args": "^5.0.2",
+    "command-line-usage": "^5.0.5",
+    "mongodb": "^3.0.0"
+  }
+}

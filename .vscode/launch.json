@@ -1,0 +1,23 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Program",
+            "program": "${workspaceFolder}/mongoaa.js",
+            "args": [
+                "-s",
+                "mongodb://127.0.0.1:29107/?replicaSet=rs0",
+                "mongodb://127.0.0.1:29108/?replicaSet=rs0",
+                "-d",
+                "foo",
+                "-c",
+                "bar"
+            ]
+        }
+    ]
+}
